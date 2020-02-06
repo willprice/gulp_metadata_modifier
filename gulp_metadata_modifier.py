@@ -138,7 +138,7 @@ def modify_all_gulp_dirs(
 def modify_metadata(
     gulp_dir: Union[Path, str],
     transform_func: Callable[
-        [GulpExampleId, GulpMetaDataDict], Optional[GulpMetaDataDict]
+        [GulpExampleId, GulpExampleMetaDict], Optional[GulpExampleMetaDict]
     ],
     *,
     drop_nones: bool = False,
