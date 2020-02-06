@@ -2,14 +2,15 @@ import setuptools
 
 setuptools.setup(
     name="gulp_metadata_modifier",  # Replace with your own username
-    version="0.0.1",
+    version="0.0.3",
     author="Will Price",
     author_email="will.price94@gmail.com",
+    license="MIT",
     description="A tool for updating gulp metadata",
     long_description="Update and remove examples from gulp metadata",
     long_description_content_type="text/markdown",
     url="https://github.com/willprice/gulp_metadata_modifier",
-    packages=setuptools.find_packages(),
+    py_modules=["gulp_metadata_modifier"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
