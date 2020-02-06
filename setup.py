@@ -1,8 +1,11 @@
 import setuptools
 
+with open("VERSION", "r") as f:
+    version = f.read().strip()
+
 setuptools.setup(
     name="gulp_metadata_modifier",  # Replace with your own username
-    version="0.0.3",
+    version=version,
     author="Will Price",
     author_email="will.price94@gmail.com",
     license="MIT",

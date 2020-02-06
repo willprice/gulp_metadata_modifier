@@ -37,47 +37,49 @@ GulpExampleMetaDict = Dict[str, Union[GulpFrameInfo, List[GulpMetaDataDict]]]
 GulpDirectoryMetaDict = Dict[GulpExampleId, GulpExampleMetaDict]
 
 
-parser = argparse.ArgumentParser(
-    description="Update the metadata in a gulp directory from a given dataframe",
-    formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-)
-parser.add_argument(
-    "annotations_pkl",
-    type=Path,
-    help="Path to pickled DataFrame containing all annotations. The index must "
-    "correspond to the ID of the gulped examples. All the columns' values will be "
-    "copied into the first item of the metadata field for that example.",
-)
-parser.add_argument(
-    "gulp_dirs",
-    type=Path,
-    nargs="+",
-    metavar="GULP_DIR",
-    help="Gulp directories to update",
-)
-parser.add_argument(
-    "--drop-unknown",
-    action="store_true",
-    help="Drop entries for examples not found in annotations DataFrame",
-)
-parser.add_argument(
-    "--ignore-missing-examples",
-    action="store_true",
-    help="If an example is missing from annotations_pkl then this script will raise "
-    "an error unless --drop-unknown is set, however if you simply want to leave "
-    "that metadata untouched when --drop-unkonwn is not set, then set this flag.",
-)
-parser.add_argument(
-    "--disable-backup",
-    action="store_false",
-    dest="enable_backup",
-    help="Disable creation of gmeta_X.bak files when updating metadata",
-)
+def _make_parser():
+    parser = argparse.ArgumentParser(
+        description="Update the metadata in a gulp directory from a given dataframe",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument(
+        "annotations_pkl",
+        type=Path,
+        help="Path to pickled DataFrame containing all annotations. The index must "
+        "correspond to the ID of the gulped examples. All the columns' values will be "
+        "copied into the first item of the metadata field for that example.",
+    )
+    parser.add_argument(
+        "gulp_dirs",
+        type=Path,
+        nargs="+",
+        metavar="GULP_DIR",
+        help="Gulp directories to update",
+    )
+    parser.add_argument(
+        "--drop-unknown",
+        action="store_true",
+        help="Drop entries for examples not found in annotations DataFrame",
+    )
+    parser.add_argument(
+        "--ignore-missing-examples",
+        action="store_true",
+        help="If an example is missing from annotations_pkl then this script will raise "
+        "an error unless --drop-unknown is set, however if you simply want to leave "
+        "that metadata untouched when --drop-unkonwn is not set, then set this flag.",
+    )
+    parser.add_argument(
+        "--disable-backup",
+        action="store_false",
+        dest="enable_backup",
+        help="Disable creation of gmeta_X.bak files when updating metadata",
+    )
+    return parser
 
 
 def main(args=None) -> None:
     if args is None:
-        args = parser.parse_args()
+        args = _make_parser().parse_args()
     logging.basicConfig(level=logging.INFO)
     annotations = pd.read_pickle(args.annotations_pkl)
 
